@@ -1,0 +1,34 @@
+.icon-input {
+    padding-left: 30px;
+    background-image: url('../../../public/images/user-icon.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 20px;
+  }
+  
+  /* If you want to remove the default browser styling for the input field */
+  .icon-input:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+.icon-input::background {
+    padding-left: 30px;
+  }
+
+  .icon-input::placeholder {
+    padding-left: 30px;
+  }
+
+  .icon-input:focus::placeholder {
+    padding-left: 10px;
+  }
+
+  .icon-input:focus {
+    padding-left: 30px; 
+  }
+  
+  .icon-input::value {
+    padding-left: 30px; 
+  }
+  
