@@ -20,7 +20,7 @@ const MainPage = (props) => {
     navigate('/login')
    }else{
     props.darkModeChange(localStorage.getItem("darkMode")&&localStorage.getItem("darkMode")==="false"?false:(localStorage.getItem("darkMode")&&localStorage.getItem("darkMode")==="true"?true:false))
-    props.getData(new Date())
+    props.getData()
     
    }
   }, [])

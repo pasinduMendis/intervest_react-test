@@ -44,7 +44,6 @@ const updateUserInfo = (field, value) => {
         setError("something went wrong. try again!")
       }
       else{  
-        props.getData("2023-05-13")
         navigate('/')
       }
       
