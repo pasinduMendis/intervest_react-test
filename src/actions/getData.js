@@ -1,14 +1,16 @@
 import axios from "axios"
 
-export const getData=(date)=>(dispatch)=>{
+export const getData=(dateFilter)=>(dispatch)=>{
+    
     const today = new Date();
-console.log('Before: ', today);
-const month = today.getMonth();
-const beforeMonth=today.setMonth(month - 1);
-console.log(today,beforeMonth)
+    const filterDate = dateFilter?dateFilter:new Date();
 
+    const getLast5Day=(relatedDate)=>{
+       return new Date(relatedDate.getFullYear(), relatedDate.getMonth(), relatedDate.getDate() - 7)
+    }
 
 function formatDate(date) {
+    
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
@@ -21,12 +23,17 @@ function formatDate(date) {
 
     return [year, month, day].join('-');
 }
+var api=`https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/${formatDate(getLast5Day(today))}/${formatDate(today)}?adjusted=true&sort=asc&limit=120&apiKey=IafDwcjtuPXvtxZhJOAjGiwegxFyZVyH`
 
-axios.get(`https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2023-04-23/2023-05-23?apiKey=IafDwcjtuPXvtxZhJOAjGiwegxFyZVyH`).then((res)=>{
-    console.log("dataset ;",res.data);
+
+if(dateFilter){
+    api=`https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/${formatDate(getLast5Day(filterDate))}/${formatDate(filterDate)}?adjusted=true&sort=asc&limit=120&apiKey=IafDwcjtuPXvtxZhJOAjGiwegxFyZVyH`
+}
+
+axios.get(api).then((res)=>{
     dispatch({
             type:"GET_RELATED_DATA",
-            payload:res.data
+            payload:res.data.results
     })
 })
 

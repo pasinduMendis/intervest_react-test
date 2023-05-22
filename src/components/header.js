@@ -1,9 +1,21 @@
+import { useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { connect } from 'react-redux';
 import Cookies from 'universal-cookie';
+import { getData } from '../actions/getData';
 const cookies = new Cookies();
 
-function HeaderComponet({setExpand,expand}) {
+const HeaderComponet=({setExpand,expand,getData})=> {
+  const [date,setDate]=useState("")
+
+  const getDateData=()=>{
+    if(date){
+        const dateFormat=new Date(date)
+        getData(dateFormat)
+    }
+}
+
   return (
     <>
       <Navbar bg="white" variant="white" className='w-100' style={{maxWidth:"100vw"}}>
@@ -16,7 +28,9 @@ function HeaderComponet({setExpand,expand}) {
 
             <Nav.Item className='d-none d-md-block col-0 col-md-3'>
                 <input
-                  type="search"
+                  type="date"
+                  onChange={(e)=>setDate(e.target.value)}
+                  max={`${new Date().toISOString().split('T')[0]}`}
                   style={{width:"100%",background:"#ECECEC"}}
                   className="form-control rounded-5"
                   placeholder="Search"
@@ -28,7 +42,7 @@ function HeaderComponet({setExpand,expand}) {
             <img src="/images/logo.png" alt=""/>
             </Nav.Item>
                 <Nav.Item className='d-none d-md-block col-0 col-md-2'>
-                <div className='my-auto'><p className='text-start my-auto btn border-dark'>search</p></div>
+                <div className='my-auto'><p className='text-start my-auto btn border-dark' onClick={()=>{getDateData()}}>search</p></div>
 
               </Nav.Item>
                 
@@ -59,4 +73,14 @@ function HeaderComponet({setExpand,expand}) {
   );
 }
 
-export default HeaderComponet;
+const mapStateToProps=(state)=>{
+  return {data:state}
+}
+
+const mapDispatchToProps=(dispatch)=>{
+  return {
+    getData:(date)=>dispatch(getData(date))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(HeaderComponet)

@@ -7,21 +7,29 @@ import { useNavigate } from 'react-router-dom';
 const cookies = new Cookies();
 import { connect } from 'react-redux';
 import { getData } from '../actions/getData';
+import setDarkMode from '../actions/darkMode';
 
 const MainPage = (props) => {
   const [session,setSession]=useState(cookies.get('user'))
-  console.log(props.data)
   const navigate=useNavigate()
+ 
+ 
   useEffect(() => {
    if(!(session && session.length>0)){
     setSession("")
     navigate('/login')
+   }else{
+    props.darkModeChange(localStorage.getItem("darkMode")&&localStorage.getItem("darkMode")==="false"?false:(localStorage.getItem("darkMode")&&localStorage.getItem("darkMode")==="true"?true:false))
+    props.getData(new Date())
+    
    }
   }, [])
   
   return (
     <>
+    <div style={{background:`${props.data.darkMode.darkMode?"black":"#F5F5F5"}`}}>
         <NavBar/>
+    </div>
     </>
   )
 }
@@ -32,7 +40,8 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps=(dispatch)=>{
   return {
-    getData:(date)=>dispatch(getData(date))
+    getData:(date)=>dispatch(getData(date)),
+    darkModeChange:(data)=>dispatch(setDarkMode(data))
   }
 }
 
