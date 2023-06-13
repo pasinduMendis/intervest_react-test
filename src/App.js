@@ -8,8 +8,9 @@ function App() {
     <div className="App" style={{maxWidth:"100vw",overflowX:"hidden",background:"#F5F5F5"}}>
       <Router>
         <Routes>
-          <Route path='/' element={<MainPage />} />
+          <Route path='/dashboard' element={<MainPage />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/' element={<Login />} />
           
         </Routes>
       </Router>

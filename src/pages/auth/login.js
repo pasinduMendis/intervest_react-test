@@ -19,7 +19,7 @@ const navigate=useNavigate()
   useEffect(() => {
    if((session && session.length>0)){
     setSession("")
-    navigate('/')
+    navigate('/dashboard')
    }
   }, [])
 
@@ -44,7 +44,7 @@ const updateUserInfo = (field, value) => {
         setError("something went wrong. try again!")
       }
       else{  
-        navigate('/')
+        navigate('/dashboard')
       }
       
     }else{
