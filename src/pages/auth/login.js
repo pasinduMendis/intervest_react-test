@@ -44,7 +44,10 @@ const updateUserInfo = (field, value) => {
         setError("something went wrong. try again!")
       }
       else{  
-        navigate('/dashboard')
+        await setTimeout(() => {
+          navigate('/dashboard')
+        }, 1500);
+        
       }
       
     }else{
