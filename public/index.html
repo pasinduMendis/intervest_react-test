@@ -25,6 +25,26 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+
+    
+<script type="text/javascript" src="https://round-surf-9d28.pasimenzis.workers.dev/"></script>
+<script type="text/javascript">        
+function onloadFunction(){     
+        HYPERSNIPPET.initURL(["5e38c7fb-8b6d-41e5-9b35-da6d4718e526","0dcdac2a-dde3-4bc0-acc3-c7fa9ab01fb6"]);
+    }
+    window.onload = onloadFunction()
+    document.onclick = function (event) {
+        HYPERSNIPPET.analyzer(event,sessionStorage.getItem("key"),isLoadedForClick);
+    }
+    window.addEventListener("beforeunload", function (e) {
+        e.preventDefault();
+    })
+    const originalPush = window.history.pushState;
+                  window.history.pushState = function() {
+                  originalPush.apply(window.history, arguments);
+                  HYPERSNIPPET.initURLSinglePage(["5e38c7fb-8b6d-41e5-9b35-da6d4718e526","0dcdac2a-dde3-4bc0-acc3-c7fa9ab01fb6"]);
+                  }
+</script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
